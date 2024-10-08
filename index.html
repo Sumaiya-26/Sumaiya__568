@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To-Do List</title>
+</head>
+<body>
+	<h1>To-Do List</h1>
+	<input type="text" id="task-input" placeholder="Add new task">
+	<button id="add-task-btn">Add Task</button>
+	<ul id="task-list"></ul>
+</html>
+<style>
+    #task-list {
+	list-style: none;
+	padding: 6px;
+	margin: 6px;
+    height: 200px;
+    width: 200px;
+}
+#task-list li {
+	background-color: purple;
+	padding: 3px;
+    height: 20px;
+    width: 70px;
+	border-bottom: 1px solid #111010;
+}
+#task-list li:last-child {
+	border-bottom:none;
+}
+#task-list li.completed {
+	text-decoration:line-through;
+	color: hsl(0, 14% 35%);
+}
+</style>
+<script>
+    const taskInput = document.getElementById('task-input');
+const addTaskBtn = document.getElementById('add-task-btn');
+const taskList = document.getElementById('task-list');
+const removeCompletedBtn = document.getElementById('remove-completed-btn');
+
+addTaskBtn.addEventListener('click', addTask);
+removeCompletedBtn.addEventListener('click', removeCompletedTasks);
+function addTask() {
+	const task = taskInput.value.trim();
+	if (task) {
+		const li = document.createElement('li');
+		li.textContent = task;
+		li.addEventListener('click', toggleCompleted);
+		taskList.appendChild(li);
+		taskInput.value = '';
+	}
+}
+function toggleCompleted(e) {
+	e.target.classList.toggle('completed');
+}
+function removeCompletedTasks() {
+	const completedTasks = taskList.querySelectorAll('.completed');
+	completedTasks.forEach(task => task.remove());
+}
+</script>
